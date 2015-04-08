@@ -1,0 +1,40 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="col-md-12">
+		<br>
+		<form class="form-horizontal" method="POST">
+			<fieldset>
+
+			<!-- Form Name -->
+			<legend>Form Name</legend>
+
+			<!-- Text input-->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="link">Url to Submit</label>  
+			  <div class="col-md-4">
+			  <input id="link" name="link" type="text" placeholder="" class="form-control input-md">
+			    
+			  </div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="submit"></label>
+			  <div class="col-md-4">
+			    <button id="submit" type="submit" name="submit" class="btn btn-primary">Submit</button>
+			  </div>
+			</div>
+
+			</fieldset>
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
