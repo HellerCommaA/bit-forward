@@ -36,7 +36,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">
-            <img alt="Brand" src="/static/icon.png">
+            BitLink<!-- <img alt="Brand" src="/static/icon.png"> -->
           </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
@@ -50,8 +50,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li {% if request.endpoint == 'home' %}class="active"{% endif %}><a href="{{url_for('home')}}">Home</a></li>
-        <li><a href="#">Add Item</a></li>
-        <li><a href="#">View Items</a></li>
+        <li {% if request.endpoint == 'urls' %}class="active"{% endif %}><a href="{{ url_for('urls') }}">URLs</a></li>
+        <li {% if request.endpoint == 'user_data' %}class="active"{% endif %}><a href="{{ url_for('user_data') }}">User Data</a></li>
         <li><a href="#">Reports</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>

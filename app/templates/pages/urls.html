@@ -1,0 +1,20 @@
+{% extends 'layouts/main.html' %}
+{% block title %}URLS{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="col-md-12">
+		<br>
+		{% for each in links %}
+			Link: <a href="//{{each.link}}">{{each.link}}</a><br>
+			Url: <a href="{{each.url}}">{{each.url}}</a><br>
+			Clicks {{each.clicks}}<br>
+			User: {{each.owner}}<br><br>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,10 +1,43 @@
 {% extends 'layouts/main.html' %}
-{% block title %}{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="page-header">
-  <h1></h1>
+<div class="container">
+	<div class="col-md-12">
+		<br>
+		{% if session.logged_in %}
+		<form class="form-horizontal" method="POST">
+			<fieldset>
+
+			<!-- Form Name -->
+			<legend>Form Name</legend>
+
+			<!-- Text input-->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="link">Url to Submit</label>  
+			  <div class="col-md-4">
+			  <input id="link" name="link" type="text" placeholder="" class="form-control input-md">
+			    
+			  </div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="submit"></label>
+			  <div class="col-md-4">
+			    <button id="submit" type="submit" name="submit" class="btn btn-primary">Submit</button>
+			  </div>
+			</div>
+
+			</fieldset>
+		</form>
+		{% else %}
+		<a href="/login">Login</a>
+		{% endif %}
+	</div>
 </div>
 
+{% endblock %}
 
+{% block scripts %}
 {% endblock %}

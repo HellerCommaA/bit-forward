@@ -87,7 +87,7 @@ def home():
     if request.method == 'GET':
         return render_template('pages/home.html')
     else:
-        link = Link(link = request.form['link'])
+        link = Link(link = request.form['link'], user = g.user.username)
         db.session.add(link)
         db.session.commit()
         return render_template('pages/info.html', link = link)
@@ -97,17 +97,31 @@ def shortener(short):
     link = Link.query.filter_by(url = short).first()
     link.clicks += 1
     db.session.add(link)
+    user = User.query.filter_by(username = link.owner).first()
+    user.owed += 1
+    db.session.add(user)
     db.session.commit()
     return render_template('pages/bounce.html', link = link)
 
-@app.route('/uploads/<path:filename>')
-def uploaded_file(filename):
-    today = date.today()
-    return send_from_directory(app.config['UPLOAD_FOLDER'] + str(today), filename)
+@app.route('/user-data')
+def user_data():
+    users = User.query.all()
+    return render_template('pages/user-data.html', users = users)
 
-@app.route('/uploads/<key>/<path:filename>')
-def uploaded_photos(filename, key):
-    return send_from_directory(app.config['UPLOAD_FOLDER'] + str(key), filename)
+@app.route('/urls')
+@login_required
+def urls():
+    links = Link.query.all()
+    return render_template('pages/urls.html', links = links)
+
+# @app.route('/uploads/<path:filename>')
+# def uploaded_file(filename):
+#     today = date.today()
+#     return send_from_directory(app.config['UPLOAD_FOLDER'] + str(today), filename)
+
+# @app.route('/uploads/<key>/<path:filename>')
+# def uploaded_photos(filename, key):
+#     return send_from_directory(app.config['UPLOAD_FOLDER'] + str(key), filename)
 
 #----------------------------------------------------------------------------#
 # Search

@@ -5,6 +5,7 @@
 <div class="container">
 	<div class="col-md-12">
 		<br>
+		{% if session.logged_in %}
 		<form class="form-horizontal" method="POST">
 			<fieldset>
 
@@ -30,7 +31,9 @@
 
 			</fieldset>
 		</form>
-
+		{% else %}
+		<a href="/login">Login</a>
+		{% endif %}
 	</div>
 </div>
 

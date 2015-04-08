@@ -7,7 +7,8 @@ from app import db, app
 from flask.ext.login import UserMixin
 from datetime import datetime
 from collections import OrderedDict
-
+import string
+import random
 
 class Link(db.Model):
 
@@ -15,11 +16,19 @@ class Link(db.Model):
     link = db.Column(db.String()) # to redirect to
     clicks = db.Column(db.Integer, default = 0) # clicks
     url = db.Column(db.String()) # shortened URL
+    owner = db.Column(db.String()) # user who created link
 
-    def __init__(self, link):
+    def __init__(self, link, user):
         self.link = link
         self.clicks = 0
-        self.url = 'aaaa'
+        x = self.id_generator()
+        self.url = x
+        self.owner = user
+
+    def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
+        return ''.join(random.choice(chars) for _ in range(size))
+
+
 # class Item(db.Model):
 #     __tablename__ = "Item"
 #     __searchable__ = ['serial', 'title', 'desc', 'owner', 'borrower', 'location', 'notes']
@@ -62,6 +71,7 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True , index=True)
     password = db.Column(db.String(120))
     email = db.Column(db.String(50),unique=True , index=True)
+    owed = db.Column(db.Integer, default = 0) # amount owed
     # photo = db.Column(db.String(120), default="default.png")
     # registered_on = db.Column('registered_on' , db.DateTime)
     # level = db.Column(db.String(10), default="1")
@@ -71,9 +81,7 @@ class User(db.Model):
         self.username = username
         self.password = password
         self.email = email
-        # self.level = level
-        # self.registered_on = datetime.utcnow()
-        # self.wants = wants
+        self.owed = 0
  
     def is_authenticated(self):
         return True
